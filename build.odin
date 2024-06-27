@@ -12,8 +12,6 @@ main :: proc() {
     libc.system("odin build ./raylib_protable_window/raylib_portable_window.odin -out:bin/raylib_portable_window.exe -file")
     libc.system("odin build ./Win32GUI-BasicWindow/BasicWindow.odin -out:bin/basic-window.exe -file -subsystem:windows")
  
-    // NOTE: will not show icon if you run this program from anywhere other than the bin folder.
-    // NOTE: look into making the icon a compiled resource.
-    libc.system("odin build ./Win32GUI-Window_Callback/CallbackWindow.odin -out:bin/callback-window.exe -file -subsystem:windows")
+    libc.system("odin build ./Win32GUI-Window_Callback/CallbackWindow.odin -out:bin/callback-window.exe -file -subsystem:windows -resource:Win32GUI-Window_Callback/res.rc")
     
 }

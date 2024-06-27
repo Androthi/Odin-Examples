@@ -10,6 +10,10 @@ hdc : win32.HDC
 background_brush : win32.HBRUSH
 background_color := win32.GetSysColor( win32.COLOR_WINDOW)
 
+// Resources -- should match values in res.rc
+TROLL_ICON :: 1000
+
+
 WinProc :: proc "stdcall" (
     hwin: win32.HWND,
     message: win32.UINT,
@@ -54,23 +58,24 @@ main :: proc() {
     hinst : win32.HANDLE = auto_cast win32.GetModuleHandleW(nil)
     cursor := win32.LoadCursorA(nil, win32.IDC_ARROW)
 
+    icon := win32.LoadIconW(hinst, win32.MAKEINTRESOURCEW(1000))
+
+/*
+    // another way to load an icon directly from file
     icon := win32.LoadImageW(
         nil,
-        win32.L("..\\Resources\\troll.ico"),
+        win32.L("Resources\\troll.ico"),
         win32.IMAGE_ICON,
         0,
         0,
         win32.LR_DEFAULTSIZE | win32.LR_LOADFROMFILE
     )
+*/
 
+if icon == nil {
+    win32.MessageBoxW(nil,win32.L("Unable to Load Icon"),win32.L("Error"), win32.MB_ICONERROR)
 
-    if icon == nil {
-        // NOTE: we are just ignoring this.
-        // if you want the wonderful icon to show, change directory to bin before running program
-        // or change the icon path above 
-        //win32.MessageBoxW(nil,win32.L("Unable to Load Icon"),win32.L("Error"), win32.MB_ICONERROR)
-
-    } 
+} 
 
     wndclass := win32.WNDCLASSEXW {
         size_of(win32.WNDCLASSEXW),
