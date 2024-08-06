@@ -110,7 +110,6 @@ main :: proc() {
         //----------------------------------------------------------------------------------
     }
     
-	UnloadGame()		// Unload loaded data (textures, sounds, models...)
     rl.CloseWindow()	// Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 	
