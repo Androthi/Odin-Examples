@@ -4,9 +4,13 @@ import "core:fmt"
 import "core:c/libc"
 import "core:os"
 
+/*
+    This will compile all the examples and place them in the bin folder
+
+*/
+
 main :: proc() {
     
-    os.make_directory("bin")
     fmt.println("Building Examples into /bin")
 
     libc.system("odin build ./Win32GUI-BasicWindow/BasicWindow.odin -out:bin/basic-window.exe -file -subsystem:windows")
