@@ -1,6 +1,4 @@
-package rodintron
-
-// robotron type game
+package asteroids
 
 import "core:math"
 import rl "vendor:raylib"
