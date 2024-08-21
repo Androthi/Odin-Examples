@@ -1,4 +1,4 @@
-package asteroids
+package rodintron
 
 // robotron type game
 
@@ -6,6 +6,7 @@ import "core:math"
 import rl "vendor:raylib"
 import "core:c"
 import "core:fmt"
+import "core:math/rand"
 
 PLAYER_BASE_SIZE	:: 20.0
 PLAYER_SPEED		:: 6.0
@@ -94,9 +95,9 @@ main :: proc() {
 
 	InitGame()
 
-	for !rl.WindowShouldClose()    // Detect window close button or ESC key
+    for !rl.WindowShouldClose()    // Detect window close button or ESC key
 	{
-		UpdateGame()
+        UpdateGame()
 		RenderFrame()
 		DrawFrame()
 	}
@@ -107,6 +108,28 @@ main :: proc() {
 
 	return
 	
+}
+
+draw_level_entry :: proc() {
+    width := rl.GetScreenWidth()
+    height := rl.GetScreenHeight()
+
+    
+    w_pos, h_pos:c.int
+    for  {
+        
+        rl.BeginDrawing()
+        rl.ClearBackground(rl.BLACK)
+        w_pos +=20; if w_pos > width do w_pos = width
+        h_pos +=20; if h_pos > height do h_pos = height
+        if w_pos == width && h_pos == height do break
+        rl.DrawRectangleLinesEx( {f32(width/2 - w_pos/2), f32(height/2 - h_pos/2), f32(w_pos), f32(h_pos)},
+                                    20.0,
+                                    transmute(rl.Color)rand.uint32()
+                                )
+        rl.EndDrawing()
+    }
+
 }
 
 RenderFrame:: proc() {
@@ -431,7 +454,7 @@ UpdateGame :: proc() {
 			level += 1
 			if level == MAX_LEVEL { victory = true }
 			else {
-				InitGame()
+                InitGame()
 			}
 			
 		}
@@ -556,5 +579,6 @@ InitGame :: proc() {
 
 	midMeteorsCount = 0
 	smallMeteorsCount = 0
+    draw_level_entry()
 
 }
