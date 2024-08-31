@@ -64,7 +64,7 @@ main :: proc() {
 
     msg : win32.MSG
     for {
-        if !win32.GetMessageW(&msg, nil, 0, 0) do break;
+        if win32.GetMessageW(&msg, nil, 0, 0) == 0 do break;
         win32.TranslateMessage(&msg)
         win32.DispatchMessageW(&msg)
     }

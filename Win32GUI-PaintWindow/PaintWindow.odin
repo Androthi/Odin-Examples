@@ -112,7 +112,14 @@ if icon == nil {
 
     msg : win32.MSG
     for {
-        if !win32.GetMessageW(&msg, nil, 0, 0) do break;
+        ok := win32.GetMessageW(&msg, nil, 0, 0)
+        if ok == 0 do break
+        if ok < 0 {
+            // error, ideally you would use GetLastError() and FormatMessage(...)
+            // for this demo, we will simply show a message box
+            win32.MessageBoxW(nil,win32.L("Error while trying to GetMessage"),win32.L("Error"), win32.MB_ICONERROR)
+            break
+        }
         win32.TranslateMessage(&msg)
         win32.DispatchMessageW(&msg)
     }
